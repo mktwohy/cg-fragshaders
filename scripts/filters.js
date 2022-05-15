@@ -35,6 +35,8 @@ class GlApp {
         this.has_video = false;                           // flag - whether video is playing yet or not
         this.video_texture = null;                        // texture for video
 
+        this.vibrance_threshold = 0.2;
+
         this.filter = 'normal';                           // current shading algorithm to use for rendering
 
         this.start_time = performance.now();              // start time of app
@@ -236,6 +238,7 @@ class GlApp {
         if (this.filter === 'custom') {
             this.gl.uniform1f(shader.uniforms.width, this.video.videoWidth);
             this.gl.uniform1f(shader.uniforms.height, this.video.videoHeight);
+            this.gl.uniform1f(shader.uniforms.vibrance_threshold, this.vibrance_threshold);
         }
         else if (this.filter === 'ripple') {
             this.gl.uniform1f(shader.uniforms.time, time / 1000.0);

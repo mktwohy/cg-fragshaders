@@ -9,9 +9,12 @@
     <script type="application/javascript" src="scripts/glsl.js"></script>
     <script type="application/javascript" src="scripts/filters.js"></script>
     <script type="application/javascript">
+        let video_src = 'videos/CIE_colorspace.mp4'
         let glapp;
         let video;
         let cam_stream;
+
+
         function init() {
             if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
                 alert('Error: getUserMedia() not supported. Please try another browser for WebCam.');
@@ -22,6 +25,8 @@
             for (i = 0; i < filters.length; i++) {
                 filters[i].addEventListener('click', selectFilter, false);
             }
+
+            document.getElementById("threshold").addEventListener('change', updateThreshold)
 
             cam_stream = null;
 
@@ -40,7 +45,12 @@
                 start_stop.textContent = 'Stop';
                 start_stop_button.style.backgroundColor = '#D85A58';
             };
-            video.src = 'videos/dm_vector.mp4';
+            // video.src = 'videos/dm_vector.mp4';
+            video.src = video_src;
+        }
+
+        function updateThreshold(){
+            glapp.vibrance_threshold = document.getElementById("threshold").value;
         }
 
         function startVideoStream() {
@@ -85,7 +95,7 @@
             else {
                 glapp.has_video = false;
                 video.srcObject = null;
-                video.src = 'videos/dm_vector.mp4';
+                video.src = video_src;
             }
 
             let start_stop = document.getElementById('start_stop');
@@ -168,6 +178,9 @@
                     <div style="display: inline-block;">
                         <label class="toggle_label">WebCam</label>
                     </div>
+                    <label>
+                        <input id="threshold" type="number" step="0.01" value="0.25" onchange="updateThreshold(value)" />
+                    </label>
                 </div>
                 <div id="start_stop_button">
                     <p id="start_stop" onclick="startStop()">...</p>
