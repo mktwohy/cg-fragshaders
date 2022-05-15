@@ -14,7 +14,7 @@ out vec4 FragColor;
 const vec2 CIE_RED      = vec2(0.9, 0.5);
 const vec2 CIE_GREEN    = vec2(0.5, 0.95);
 const vec2 CIE_BLUE     = vec2(0.2, 0.1);
-const vec3 CIE_WHITE    = vec3(0.5, 0.5, 1.0);
+const vec3 CIE_WHITE    = vec3(0.56, 0.54, 1.0);
 
 const float CIE_MAX_X   = CIE_RED.x;
 const float CIE_MIN_X   = CIE_BLUE.y;
