@@ -179,12 +179,14 @@
                     <div style="display: inline-block;">
                         <label class="toggle_label">WebCam</label>
                     </div>
-                    <label>
-                        <input id="threshold" type="number" step="0.01" value="0.25" onchange="updateThreshold(value)" />
-                    </label>
                 </div>
                 <div id="start_stop_button">
                     <p id="start_stop" onclick="startStop()">...</p>
+                </div>
+                <div>
+                    <label> Vibrancy Threshold
+                        <input id="threshold" type="number" step="0.01" value="0.25" onchange="updateThreshold(value)" >
+                    </label>
                 </div>
             </div>
         </div>
