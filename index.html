@@ -9,7 +9,6 @@
     <script type="application/javascript" src="scripts/glsl.js"></script>
     <script type="application/javascript" src="scripts/filters.js"></script>
     <script type="application/javascript">
-        let video_src = 'videos/CIE_colorspace.mp4'
         let glapp;
         let video;
         let cam_stream;
@@ -27,6 +26,10 @@
             }
 
             document.getElementById("threshold").addEventListener('change', updateThreshold)
+            document.querySelectorAll("input[type='radio']").forEach(button =>
+                button.onclick = () => { updateVideoSrc(button) }
+            )
+            // document.getElementById("video_src").addEventListener('click', updateVideoSrc)
 
             cam_stream = null;
 
@@ -46,13 +49,19 @@
                 start_stop.textContent = 'Stop';
                 start_stop_button.style.backgroundColor = '#D85A58';
             };
-            // video.src = 'videos/dm_vector.mp4';
-            video.src = video_src;
+            video.src = 'videos/dm_vector.mp4';
         }
 
-        function updateThreshold(){
+        function updateThreshold() {
             glapp.vibrance_threshold = document.getElementById("threshold").value;
         }
+
+        function updateVideoSrc(button) {
+            if (button.checked) {
+                glapp.video.src = button.value
+            }
+        }
+
 
         function startVideoStream() {
             glapp.has_video = false;
@@ -183,9 +192,22 @@
                 <div id="start_stop_button">
                     <p id="start_stop" onclick="startStop()">...</p>
                 </div>
+
+                <div><br></div>
+
+                <div>
+                    <label> Video:
+                        <input type="radio" name="video_src" value="videos/dm_vector.mp4" checked="true"> Vector
+                        <input type="radio" name="video_src" value="videos/CIE_colorspace.mp4"> CIE Color
+                    </label>
+                </div>
+
+                <div><br></div>
+
+
                 <div>
                     <label> Vibrancy Threshold
-                        <input id="threshold" type="number" step="0.01" value="0.25" onchange="updateThreshold(value)" >
+                        <input id="threshold" type="number" step="0.01" value="0.25" min="0.0">
                     </label>
                 </div>
             </div>
