@@ -42,13 +42,21 @@ vec4 invert(vec4 texel) {
     return texel;
 }
 
+vec4 black_white(vec4 texel) {
+    float luminance = 0.299 * texel.r + 0.587 * texel.g + 0.114 * texel.b;
+    texel.rgb *= 0.0;
+    texel.rgb += luminance;
+    return texel;
+}
+
 void main() {
     vec4 texel = texture(image, texcoord);
     if (cie_score(texel.rgb) > vibrance_threshold) {
         FragColor = texel;
     } else {
 //        FragColor = invert(texel);
-        FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+//        FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        FragColor = black_white(texel);
     }
 
 }
